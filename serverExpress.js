@@ -22,7 +22,6 @@ let respuestaRandom = newArchivo.getRandom().then((val) => {
 });
   
 app.get("/productoRandom", (req, res) => {
-  
   res.send(JSON.stringify(arrayAuxRandom, null, 2));
 });
 
