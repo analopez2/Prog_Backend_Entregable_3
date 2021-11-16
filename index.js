@@ -72,6 +72,24 @@ class Contenedor{
             throw new Error(error.message)
         }
     }
+
+    async getRandom() {
+    try {
+      const data = await fs.promises.readFile(this.archivo, "utf-8");
+      if (data) {
+        this.data = JSON.parse(data);
+        let numberRandom = Math.random() * this.data.length;
+        let number = Math.floor(numberRandom);
+        for (let i = number; i < this.data.length; i++) {
+          const element = this.data[i];
+          return element;
+        }
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
     async deleteById(id){
         try {
             let productos = await this.getAll();
@@ -125,3 +143,5 @@ console.log('Objetos guardados') */
 
 // Test deleteAll //
 //newArchivo.deleteAll()
+
+module.exports = Contenedor;
