@@ -8,17 +8,22 @@ const newArchivo = new Contenedor("product.txt");
 let arrayAux = [];
 const respuesta = newArchivo.getAll().then((response) => {
   arrayAux = response;
-  return arrayAux;
+  return console.log(arrayAux);
 });
 
 app.get("/productos", (req, res) => {
-  res.send(console.log(arrayAux));
+  res.send(JSON.stringify(arrayAux, null, 2));
 });
 
-const respuestaRandom = newArchivo.getRandom().then((val) => console.log(val));
-
+let arrayAuxRandom = [];
+let respuestaRandom = newArchivo.getRandom().then((val) => {
+  arrayAuxRandom = val;
+  return console.log(arrayAuxRandom);
+});
+  
 app.get("/productoRandom", (req, res) => {
-  res.send(respuestaRandom);
+  
+  res.send(JSON.stringify(arrayAuxRandom, null, 2));
 });
 
 const PORT = 8080;
