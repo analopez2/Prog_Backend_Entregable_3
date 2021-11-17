@@ -12,9 +12,20 @@ const server = app.listen(PORT, () => {
 server.on("error", (error) => console.log(error));
 
 
+<<<<<<< HEAD
 app.get("/productos", async (req, res) => {
   const respuesta = await newArchivo.getAll()
   res.json(respuesta);
+=======
+let arrayAuxRandom = [];
+let respuestaRandom = newArchivo.getRandom().then((val) => {
+  arrayAuxRandom = val;
+  return console.log(arrayAuxRandom);
+});
+  
+app.get("/productoRandom", (req, res) => {
+  res.send(JSON.stringify(arrayAuxRandom, null, 2));
+>>>>>>> 006f673707de525606afc2e899abfc49e11d846d
 });
 
   
