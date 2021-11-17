@@ -41,16 +41,13 @@ class Contenedor{
     }
     
     async getById(id){
-        try{
-            const data = await fs.promises.readFile(this.archivo, 'utf-8')
-            if(data){
-                this.data = JSON.parse(data)
-                for (var element = 0; element < this.data.length; i++){
-                    if (this.data[element].id == id) {
-                        return element;
-                    }
-                    i++;
-                };
+        try {
+            let productos = await this.getAll();
+
+            for (const key in productos) {
+                if (productos[key].id == id) {
+                    return productos[key];
+                }
             }
         }catch(error){
             throw new Error(error.message)
@@ -59,7 +56,6 @@ class Contenedor{
     
     async getAll(){
         try {
-            let respuesta = [];
             const data = await fs.promises.readFile(this.archivo, 'utf-8');
             if(data){
                 this.data = JSON.parse(data)
@@ -73,24 +69,7 @@ class Contenedor{
         }
     }
 
-    async getRandom() {
-    try {
-      const data = await fs.promises.readFile(this.archivo, "utf-8");
-      if (data) {
-        this.data = JSON.parse(data);
-        let numberRandom = Math.random() * this.data.length;
-        let number = Math.floor(numberRandom);
-        for (let i = number; i < this.data.length; i++) {
-          const element = this.data[i];
-          return element;
-        }
-      }
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  }
-
-    async deleteById(id){
+    async deleteById(id) {
         try {
             let productos = await this.getAll();
 
@@ -119,7 +98,7 @@ class Contenedor{
 }
 
 // -------- PRUEBAS ------//
-const newArchivo = new Contenedor('product.txt');
+//const newArchivo = new Contenedor('product.txt');
 
 // Test save //
 /* async function testSave(){
